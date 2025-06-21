@@ -64,12 +64,13 @@ output "storage_analysis" {
   value = try(length(module.prod_registry.all_registries), 0) > 0 ? {
     for registry in module.prod_registry.all_registries :
     registry.name => {
-      storage_bytes = try(registry.storage_usage_bytes, 0)
-      storage_mb    = try(registry.storage_usage_bytes, 0) != null ? registry.storage_usage_bytes / 1024 / 1024 : 0
-      storage_gb    = try(registry.storage_usage_bytes, 0) != null ? registry.storage_usage_bytes / 1024 / 1024 / 1024 : 0
-      created_at    = try(registry.created_at, "N/A")
-      updated_at    = try(registry.updated_at, "N/A")
-      age_days      = try(formatdate("YYYY-MM-DD", registry.created_at), "N/A")
+      storage_bytes   = try(registry.storage_usage_bytes, 0)
+      storage_mb      = try(registry.storage_usage_bytes, 0) != null ? registry.storage_usage_bytes / 1024 / 1024 : 0
+      storage_gb      = try(registry.storage_usage_bytes, 0) != null ? registry.storage_usage_bytes / 1024 / 1024 / 1024 : 0
+      created_at      = try(registry.created_at, "N/A")
+      updated_at      = try(registry.updated_at, "N/A")
+      created_date    = try(formatdate("YYYY-MM-DD", registry.created_at), "N/A")
+      age_description = try(registry.created_at, null) != null ? "Criado em ${formatdate("DD/MM/YYYY", registry.created_at)}" : "Data não disponível"
     }
   } : {}
 }

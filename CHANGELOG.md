@@ -10,7 +10,6 @@ e este projeto adere a [Versionamento Semântico](https://semver.org/lang/pt-BR/
 ### Added
 - **Exemplo completo funcional**: Implementado exemplo avançado demonstrando TODAS as funcionalidades
 - **Outputs avançados**: Criados outputs para análise de armazenamento, CI/CD e monitoramento
-- **Script de testes automatizados**: `test_complete.sh` para validação completa do módulo
 - **README do exemplo completo**: Guia detalhado para uso avançado
 
 ### Enhanced
@@ -21,7 +20,6 @@ e este projeto adere a [Versionamento Semântico](https://semver.org/lang/pt-BR/
 ### Tested
 - ✅ **Exemplo simples**: Validado e testado com API real
 - ✅ **Exemplo completo**: 3 registries com todas as funcionalidades habilitadas
-- ✅ **Testes automatizados**: Script de validação completa implementado
 - ✅ **Documentação**: Todos os casos de uso documentados e testados
 
 

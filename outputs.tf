@@ -10,29 +10,32 @@ output "container_registry_name" {
 }
 
 output "container_registry_created_at" {
-  description = "The timestamp when the registry was created (available only when enable_registries_list is true)"
-  value = var.enable_registries_list ? try(
-    [for registry in data.mgc_container_registries.all_registries[0].registries :
-    registry.created_at if registry.id == mgc_container_registries.registry.id][0],
-    null
+  description = "The timestamp when the registry was created"
+  value = var.enable_registries_list && length(data.mgc_container_registries.all_registries) > 0 ? (
+    try([
+      for registry in data.mgc_container_registries.all_registries[0].registries :
+      registry.created_at if registry.id == mgc_container_registries.registry.id
+    ][0], null)
   ) : null
 }
 
 output "container_registry_updated_at" {
-  description = "The timestamp when the registry was last updated (available only when enable_registries_list is true)"
-  value = var.enable_registries_list ? try(
-    [for registry in data.mgc_container_registries.all_registries[0].registries :
-    registry.updated_at if registry.id == mgc_container_registries.registry.id][0],
-    null
+  description = "The timestamp when the registry was last updated"
+  value = var.enable_registries_list && length(data.mgc_container_registries.all_registries) > 0 ? (
+    try([
+      for registry in data.mgc_container_registries.all_registries[0].registries :
+      registry.updated_at if registry.id == mgc_container_registries.registry.id
+    ][0], null)
   ) : null
 }
 
 output "container_registry_storage_usage_bytes" {
-  description = "The storage usage in bytes of the registry (available only when enable_registries_list is true)"
-  value = var.enable_registries_list ? try(
-    [for registry in data.mgc_container_registries.all_registries[0].registries :
-    registry.storage_usage_bytes if registry.id == mgc_container_registries.registry.id][0],
-    null
+  description = "The storage usage in bytes of the registry"
+  value = var.enable_registries_list && length(data.mgc_container_registries.all_registries) > 0 ? (
+    try([
+      for registry in data.mgc_container_registries.all_registries[0].registries :
+      registry.storage_usage_bytes if registry.id == mgc_container_registries.registry.id
+    ][0], null)
   ) : null
 }
 

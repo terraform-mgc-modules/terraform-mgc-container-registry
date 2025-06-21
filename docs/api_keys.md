@@ -115,7 +115,191 @@ Crie um arquivo `terraform.tfvars`:
 mgc_api_key = "<SUA_API_KEY>"
 ```
 
-⚠️ **Importante:** Nunca commitez o arquivo `terraform.tfvars` com API keys para repositórios públicos!
+⚠️ **Importante:** Nunca commite o arquivo `terraform.tfvars` com API keys para repositórios públicos!
+
+## Provisionamento Local
+
+Após configurar suas credenciais, você pode provisionar o módulo localmente usando os seguintes comandos:
+
+### 1. Inicializar o Terraform
+
+```bash
+terraform init
+```
+
+Este comando baixa os providers necessários e inicializa o backend do Terraform.
+
+### 2. Planejar a Infraestrutura
+
+```bash
+terraform plan -var-file="terraform.tfvars"
+```
+
+Este comando mostra quais recursos serão criados, modificados ou destruídos sem fazer alterações reais.
+
+### 3. Aplicar as Mudanças
+
+```bash
+terraform apply -var-file="terraform.tfvars"
+```
+
+Este comando provisiona os recursos na Magalu Cloud. Será solicitada confirmação antes de aplicar.
+
+### 4. Destruir a Infraestrutura (quando necessário)
+
+```bash
+terraform destroy -var-file="terraform.tfvars"
+```
+
+Este comando remove todos os recursos criados pelo Terraform. Use com cuidado!
+
+### Exemplo Completo de Workflow
+
+```bash
+# 1. Clonar o repositório
+git clone https://github.com/nataliagranato/mgc-container-registry.git
+cd mgc-container-registry
+
+# 2. Configurar credenciais
+export TF_VAR_mgc_api_key="<SUA_API_KEY>"
+
+# 3. Criar arquivo de variáveis (opcional)
+cat > terraform.tfvars << EOF
+mgc_api_key = "<SUA_API_KEY>"
+container_registry_name = "meu-registry-teste"
+enable_credentials_output = true
+EOF
+
+# 4. Executar Terraform
+terraform init
+terraform plan -var-file="terraform.tfvars"
+terraform apply -var-file="terraform.tfvars"
+
+# 5. Verificar outputs
+terraform output
+
+# 6. Limpar recursos (quando terminar)
+terraform destroy -var-file="terraform.tfvars"
+```
+
+### Dicas de Uso
+
+- **Sempre execute `terraform plan`** antes de `apply` para revisar mudanças
+- **Use `-auto-approve`** apenas em automações: `terraform apply -var-file="terraform.tfvars" -auto-approve`
+- **Mantenha o estado** do Terraform em local seguro ou use backend remoto
+- **Faça backup** do arquivo `terraform.tfstate` regularmente
+
+## Comandos Terraform Detalhados
+
+### Provisionamento do Root Module
+
+```bash
+# No diretório raiz do módulo
+cd /home/nataliagranato/mgc-container-registry
+
+# Inicializar
+terraform init
+
+# Planejar (revisão das mudanças)
+terraform plan -var-file="terraform.tfvars"
+
+# Aplicar configuração
+terraform apply -var-file="terraform.tfvars"
+
+# Ver outputs
+terraform output
+
+# Destruir quando necessário
+terraform destroy -var-file="terraform.tfvars"
+```
+
+### Provisionamento do Exemplo Simples
+
+```bash
+# Navegar para o exemplo simples
+cd /home/nataliagranato/mgc-container-registry/examples/simple
+
+# Inicializar
+terraform init
+
+# Planejar
+terraform plan -var-file="terraform.tfvars"
+
+# Aplicar
+terraform apply -var-file="terraform.tfvars"
+
+# Ver outputs
+terraform output
+
+# Destruir
+terraform destroy -var-file="terraform.tfvars"
+```
+
+### Provisionamento do Exemplo Completo (3 Registries)
+
+```bash
+# Navegar para o exemplo completo
+cd /home/nataliagranato/mgc-container-registry/examples/complete
+
+# Inicializar
+terraform init
+
+# Planejar (mostra criação de 3 registries)
+terraform plan -var-file="terraform.tfvars"
+
+# Aplicar (cria dev, prod e monitoring registries)
+terraform apply -var-file="terraform.tfvars"
+
+# Ver todos os outputs detalhados
+terraform output
+
+# Ver output específico
+terraform output registry_details
+
+# Destruir todos os 3 registries
+terraform destroy -var-file="terraform.tfvars"
+```
+
+### Comandos Avançados
+
+#### Verificar Configuração Específica
+
+```bash
+# Validar sintaxe do Terraform
+terraform validate
+
+# Formatar arquivos .tf
+terraform fmt
+
+# Ver estado atual
+terraform show
+
+# Listar recursos no estado
+terraform state list
+
+# Ver detalhes de um recurso específico
+terraform state show 'mgc_container_registries.main'
+```
+
+#### Importar Recursos Existentes
+
+```bash
+# Importar registry existente para o estado
+terraform import mgc_container_registries.main <registry-id>
+```
+
+#### Gerenciamento de Estado
+
+```bash
+# Fazer backup do estado
+cp terraform.tfstate terraform.tfstate.backup
+
+# Atualizar estado com recursos reais
+terraform refresh
+
+# Mover recurso no estado
+terraform state mv 'mgc_container_registries.old' 'mgc_container_registries.new'
+```
 
 ## Criação de Nova API Key (Opcional)
 
