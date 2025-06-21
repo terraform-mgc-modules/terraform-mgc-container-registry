@@ -2,12 +2,27 @@
 
 Módulo Terraform para criação e gerenciamento de Container Registries na Magalu Cloud com funcionalidades completas para DevOps e CI/CD.
 
+## Sequence Diagram(s)
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Terraform
+    participant MagaluCloud
+
+    User->>Terraform: Fornece variáveis (API Key, region, nomes)
+    Terraform->>MagaluCloud: Provisiona Container Registry
+    Terraform->>MagaluCloud: (Opcional) Consulta registries, repositórios, imagens, credenciais
+    MagaluCloud-->>Terraform: Retorna dados dos recursos
+    Terraform-->>User: Exibe outputs (IDs, credenciais, análises, alertas)
+```
+
 ## 🚀 Início Rápido
 
 ### Uso Básico
 ```hcl
 module "container_registry" {
-  source = "github.com/nataliagranato/mgc-container-registry"
+  source =  "https://github.com/terraform-mgc-modules/mgc-container-registry?ref=v1.0.0"
   
   container_registry_name = "meu-registry-app"
 }
@@ -20,7 +35,7 @@ output "registry_id" {
 ### Uso Avançado com Credenciais
 ```hcl
 module "container_registry" {
-  source = "github.com/nataliagranato/mgc-container-registry"
+  source = "https://github.com/terraform-mgc-modules/mgc-container-registry?ref=v1.0.0"
   
   container_registry_name     = "producao-apps"
   enable_credentials_output   = true
