@@ -37,7 +37,7 @@ print_error() {
 # Teste 1: Validação do módulo principal
 # ============================================================================
 print_status "Testando módulo principal..."
-cd /home/nataliagranato/mgc-container-registry
+cd "$(dirname "$0")/.."
 
 if terraform validate; then
     print_success "Módulo principal validado com sucesso"
