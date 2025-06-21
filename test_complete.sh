@@ -104,7 +104,7 @@ fi
 # Teste 4: Verificação de arquivos essenciais
 # ============================================================================
 print_status "Verificando arquivos essenciais..."
-cd /home/nataliagranato/mgc-container-registry
+cd "$(dirname "$0")"/..
 
 files_to_check=(
     "main.tf"
