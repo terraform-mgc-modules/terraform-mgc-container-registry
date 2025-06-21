@@ -30,7 +30,7 @@ mgc auth api-key list
 ```yaml
 - id: <SEU_ID_DA_API_KEY>
   name: minha-api-key
-  name: Portal
+  description: Portal
 ```
 
 ### 3. Obter Detalhes da API Key
