@@ -46,7 +46,7 @@ variable "enable_repositories_data" {
 
 variable "repository_name" {
   description = "Name of a specific repository to fetch images data from. Leave null if not needed."
-  type        = string
+  type        = string?
   default     = null
 
   validation {
